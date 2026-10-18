@@ -1,0 +1,51 @@
+@charset "utf-8";
+@use "../foundation/mixin" as m;
+@use "../foundation/color" as c;
+
+.c-title {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+// 英字ラベル：細い窓の下から、すっと顔を出す
+.c-title__en {
+  display: inline-block;
+  overflow: hidden;
+  font-family: "Cormorant Garamond", serif;
+  font-size: 1.15rem;
+  font-weight: 500;
+  letter-spacing: 0.3em;
+  line-height: 1.3;
+  color: c.$textSub;
+  > span {
+    display: inline-block;
+    transform: translateY(105%);
+    transition: transform 1.2s m.$easeOutQuint;
+  }
+  &.view > span {
+    transform: translateY(0);
+  }
+}
+
+// 日本語見出し：行ごとに、筆でなでるように左からにじみ出る
+.c-title__ja {
+  font-size: 2.7rem;
+  font-weight: 500;
+  line-height: 1.75;
+  letter-spacing: 0.16em;
+  color: c.$text;
+  @include m.mq(tab-l) {
+    font-size: 2.4rem;
+  }
+  @include m.mq(sm) {
+    font-size: 2.1rem;
+  }
+  .line {
+    @include m.brush(0.25s);
+  }
+  &.view .line {
+    --sweep: 130%;
+  }
+}

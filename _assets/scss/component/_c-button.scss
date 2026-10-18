@@ -1,0 +1,249 @@
+@charset "utf-8";
+@use "../foundation/mixin" as m;
+@use "../foundation/color" as c;
+
+// ボタン
+// ホバーした位置から、色がにじむように円が広がる（scripts.js が --hx / --hy を更新）
+.c-button {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  min-width: 190px;
+  padding: 14px 28px;
+  border: 1px solid c.$text;
+  background-color: c.$dark;
+  font-family: "Cormorant Garamond", serif;
+  font-size: 1.25rem;
+  font-weight: 500;
+  letter-spacing: 0.24em;
+  line-height: 1.4;
+  color: c.$textLight;
+  overflow: hidden;
+  isolation: isolate;
+  transition: color 0.6s m.$easeOutCubic, border-color 0.6s;
+  @include m.mq(sm) {
+    min-width: 170px;
+  }
+  &::before {
+    content: "";
+    position: absolute;
+    top: var(--hy, 50%);
+    left: var(--hx, 50%);
+    z-index: -1;
+    width: 260%;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background-color: c.$taupe;
+    transform: translate(-50%, -50%) scale(0);
+    transition: transform 0.8s m.$easeOutQuart;
+  }
+  &:hover {
+    &::before {
+      transform: translate(-50%, -50%) scale(1);
+    }
+    .c-button__arrow {
+      width: 30px;
+    }
+  }
+
+  // ベージュ地（フッターの予約）
+  &.--sand {
+    border-color: c.$sand;
+    background-color: c.$sand;
+    color: c.$text;
+    &::before {
+      background-color: c.$ivory;
+    }
+  }
+  // 暗い背景用の枠線
+  &.--outlineLight {
+    border-color: rgba(c.$textLight, 0.7);
+    background-color: transparent;
+    color: c.$textLight;
+    &::before {
+      background-color: c.$textLight;
+    }
+    &:hover {
+      color: c.$text;
+    }
+  }
+  &.--small {
+    min-width: 0;
+    gap: 12px;
+    padding: 10px 24px;
+    font-size: 1.15rem;
+  }
+  &.--ja {
+    font-family: inherit;
+    font-size: 1.25rem;
+    letter-spacing: 0.14em;
+  }
+}
+.c-button__text {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: inherit;
+}
+// 線で描く矢印。ホバーで線が伸び、矢じりが一度抜けて戻る
+.c-button__arrow {
+  position: relative;
+  display: block;
+  width: 20px;
+  height: 1px;
+  background-color: currentColor;
+  transition: width 0.6s m.$easeOutQuart;
+  &::after {
+    content: "";
+    position: absolute;
+    top: -3px;
+    right: 0;
+    width: 7px;
+    height: 7px;
+    border-top: 1px solid currentColor;
+    border-right: 1px solid currentColor;
+    transform: rotate(45deg) translate(-1px, 1px);
+  }
+}
+
+// テキストリンク「〇〇をみる —」
+// 下線は右へ抜けてから左から引き直され、末尾の線が伸びる
+.c-link {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 18px;
+  padding: 0 4px 8px;
+  font-size: 1.25rem;
+  letter-spacing: 0.16em;
+  white-space: nowrap;
+  &::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 1px;
+    background-color: currentColor;
+    opacity: 0.55;
+    transform-origin: right center;
+  }
+  &:hover {
+    &::after {
+      animation: linkRedraw 1s m.$easeInOutQuart;
+    }
+    .c-link__line {
+      width: 28px;
+    }
+  }
+}
+.c-link__line {
+  display: block;
+  width: 14px;
+  height: 1px;
+  background-color: currentColor;
+  transition: width 0.6s m.$easeOutQuart;
+}
+@keyframes linkRedraw {
+  0% {
+    transform: scaleX(1);
+    transform-origin: right center;
+  }
+  45% {
+    transform: scaleX(0);
+    transform-origin: right center;
+  }
+  55% {
+    transform: scaleX(0);
+    transform-origin: left center;
+  }
+  100% {
+    transform: scaleX(1);
+    transform-origin: left center;
+  }
+}
+
+// ハサミのアイコン：ホバーで2回だけ刃が閉じる
+.c-snip {
+  display: block;
+  width: 22px;
+  height: 22px;
+  overflow: visible;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1;
+  .c-snip__blade {
+    transform-origin: 11px 11px;
+    transform-box: view-box;
+  }
+  a:hover & {
+    .c-snip__blade.--a {
+      animation: snipA 0.36s m.$easeInOutCubic 2;
+    }
+    .c-snip__blade.--b {
+      animation: snipB 0.36s m.$easeInOutCubic 2;
+    }
+  }
+}
+@keyframes snipA {
+  50% {
+    transform: rotate(13deg);
+  }
+}
+@keyframes snipB {
+  50% {
+    transform: rotate(-13deg);
+  }
+}
+
+// スライダー用の矢印ボタン
+.c-arrow {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  color: c.$text;
+  span {
+    position: relative;
+    display: block;
+    width: 22px;
+    height: 1px;
+    background-color: currentColor;
+    transition: width 0.5s m.$easeOutQuart, transform 0.5s m.$easeOutQuart;
+    &::after {
+      content: "";
+      position: absolute;
+      top: -3px;
+      width: 7px;
+      height: 7px;
+      border-top: 1px solid currentColor;
+    }
+  }
+  &.--next span::after {
+    right: 0;
+    border-right: 1px solid currentColor;
+    transform: rotate(45deg) translate(-1px, 1px);
+  }
+  &.--prev span::after {
+    left: 0;
+    border-left: 1px solid currentColor;
+    transform: rotate(-45deg) translate(1px, 1px);
+  }
+  &.--next:hover span {
+    transform: translateX(4px);
+  }
+  &.--prev:hover span {
+    transform: translateX(-4px);
+  }
+  &:hover span {
+    width: 30px;
+  }
+  &:disabled {
+    opacity: 0.3;
+    pointer-events: none;
+  }
+}

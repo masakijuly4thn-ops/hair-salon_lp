@@ -1,0 +1,179 @@
+@charset "utf-8";
+@use "../foundation/mixin" as m;
+@use "../foundation/color" as c;
+
+.l-footer {
+  position: relative;
+  color: c.$textLight;
+  background-color: c.$darkGreen;
+  overflow: hidden;
+  isolation: isolate;
+}
+// 背景の葉は、風に揺れるようにゆっくり動き続ける
+.l-footer__bg {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  img {
+    opacity: 0.38;
+    transform-origin: 30% 20%;
+    animation: leafSway 14s m.$easeInOutSine infinite alternate;
+  }
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, rgba(c.$darkGreen, 0.92) 0%, rgba(c.$darkGreen, 0.55) 55%, rgba(c.$darkGreen, 0.85) 100%);
+  }
+}
+@keyframes leafSway {
+  0% {
+    transform: scale(1.12) rotate(0deg) translate(0, 0);
+  }
+  50% {
+    transform: scale(1.14) rotate(0.8deg) translate(-1%, 0.6%);
+  }
+  100% {
+    transform: scale(1.12) rotate(-0.6deg) translate(0.8%, -0.4%);
+  }
+}
+
+.l-footer__cta {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  gap: 48px 10%;
+  max-width: 1320px;
+  width: 92%;
+  margin: auto;
+  padding: 56px 0 48px;
+  border-bottom: 1px solid c.$lineLight;
+  @include m.mq(tab-l) {
+    grid-template-columns: 1fr;
+    gap: 32px;
+    padding: 64px 0 48px;
+  }
+}
+.l-footer__message {
+  font-size: 1.5rem;
+  line-height: 2;
+  letter-spacing: 0.14em;
+}
+.l-footer__buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-top: 20px;
+}
+.l-footer__bottom {
+  display: flex;
+  align-items: center;
+  gap: 48px;
+  max-width: 1320px;
+  width: 92%;
+  margin: auto;
+  padding: 26px 0 30px;
+  @include m.mq(tab-l) {
+    flex-direction: column;
+    gap: 22px;
+  }
+}
+.l-footer__logo {
+  display: flex;
+  align-items: baseline;
+  gap: 18px;
+  flex-shrink: 0;
+  &:hover {
+    opacity: 0.7;
+  }
+}
+.l-footer__logoMain {
+  font-size: 2.6rem;
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: 0.04em;
+}
+.l-footer__logoSub {
+  font-size: 1rem;
+  letter-spacing: 0.22em;
+  line-height: 1;
+  color: c.$textLightSub;
+}
+.l-footer__navList {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px 34px;
+  margin-left: auto;
+  @include m.mq(tab-l) {
+    margin-left: 0;
+    gap: 8px 22px;
+  }
+  a {
+    position: relative;
+    font-family: "Cormorant Garamond", serif;
+    font-size: 1.15rem;
+    letter-spacing: 0.22em;
+    color: c.$textLightSub;
+    &::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -3px;
+      width: 100%;
+      height: 1px;
+      background-color: c.$sand;
+      transform: scaleX(0);
+      transform-origin: right center;
+      transition: transform 0.6s m.$easeInOutQuart;
+    }
+    &:hover {
+      color: c.$textLight;
+      &::after {
+        transform: scaleX(1);
+        transform-origin: left center;
+      }
+    }
+  }
+}
+.l-footer__sns {
+  display: flex;
+  gap: 22px;
+  a {
+    display: block;
+    width: 19px;
+    height: 19px;
+    color: c.$textLight;
+    transition: color 0.4s, transform 0.6s m.$easeOutBack;
+    &:hover {
+      color: c.$sand;
+      transform: translateY(-3px);
+    }
+  }
+  svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+}
+.l-footer__copy {
+  max-width: 1320px;
+  width: 92%;
+  margin: auto;
+  padding-bottom: 24px;
+  font-size: 1rem;
+  color: rgba(c.$textLight, 0.45);
+  @include m.mq(tab-l) {
+    text-align: center;
+  }
+  small {
+    margin-right: 1.5em;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .l-footer__bg img {
+    animation: none;
+  }
+}

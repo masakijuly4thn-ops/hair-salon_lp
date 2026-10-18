@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mellune hair atelier | 髪から、わたしらしく。</title>
+  <meta name="description" content="ひとりひとりのらしさに寄り添う、小さなヘアアトリエ Mellune。※ポートフォリオ用に制作した架空の美容院サイトです。">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Mrs+Saint+Delafield&family=Shippori+Mincho:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./assets/css/style.min.css">
+  <link rel="stylesheet" href="./assets/css/pages/top/index.min.css">
+</head>
+
+<body class="is-loading">
+  <!-- ローディング：丸い鏡 -->
+  <div class="l-loader" id="js-loader" aria-hidden="true">
+    <div class="l-loader__mirror">
+      <svg class="l-loader__ring" id="js-loaderRing" viewBox="0 0 200 200">
+        <circle class="l-loader__ringBase" cx="100" cy="100" r="96" />
+        <circle class="l-loader__ringLine" cx="100" cy="100" r="96" pathLength="1" />
+      </svg>
+      <p class="l-loader__logo c-fontEn">Mellune</p>
+      <p class="l-loader__sub c-fontEn">hair atelier</p>
+    </div>
+  </div>
+
+  <header class="l-header" id="js-header">
+    <a href="./" class="l-header__logo">
+      <span class="l-header__logoMain c-fontEn">Mellune</span>
+      <span class="l-header__logoSub c-fontEn">hair atelier</span>
+    </a>
+    <div class="l-header__right">
+      <button class="l-headerNavButton" type="button" id="js-hamburgerButton" aria-label="メニューを開く" aria-expanded="false" aria-controls="js-headerNav">
+        <span class="lineIcon">
+          <span class="line"></span>
+          <span class="line"></span>
+        </span>
+      </button>
+    </div>
+    <nav class="l-headerNav" id="js-headerNav">
+      <ul class="l-headerNav__list">
+        <li class="l-headerNav__item"><a href="#concept" class="l-headerNav__link">CONCEPT<span class="l-headerNav__sub">コンセプト</span></a></li>
+        <li class="l-headerNav__item"><a href="#style" class="l-headerNav__link">STYLE<span class="l-headerNav__sub">スタイル</span></a></li>
+        <li class="l-headerNav__item"><a href="#menu" class="l-headerNav__link">MENU<span class="l-headerNav__sub">メニュー</span></a></li>
+        <li class="l-headerNav__item"><a href="#staff" class="l-headerNav__link">STAFF<span class="l-headerNav__sub">スタッフ</span></a></li>
+        <li class="l-headerNav__item"><a href="#salon" class="l-headerNav__link">SALON<span class="l-headerNav__sub">サロン</span></a></li>
+        <li class="l-headerNav__item"><a href="#news" class="l-headerNav__link">NEWS<span class="l-headerNav__sub">お知らせ</span></a></li>
+        <li class="l-headerNav__item --button">
+          <a href="#reserve" class="c-button --small js-ripple"><span class="c-button__text">RESERVE</span><span class="c-button__arrow" aria-hidden="true"></span></a>
+        </li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="l-main">
+
+    <!-- MV -->
+    <section class="p-mv" id="js-mv">
+      <div class="p-mv__frame">
+        <div class="p-mv__slider" id="js-mvSlider">
+          <div class="p-mv__slide is-active is-first">
+            <img src="./assets/images/salon/mv-01.jpg" alt="髪に手を添え、光の中で目を閉じる女性" class="c-ofiCover c-tone" style="object-position: 62% 30%;">
+          </div>
+          <div class="p-mv__slide">
+            <img src="./assets/images/salon/mv-02.jpg" alt="朝の部屋で髪を乾かす女性の後ろ姿" class="c-ofiCover c-tone" style="object-position: 50% 30%;">
+          </div>
+          <div class="p-mv__slide">
+            <img src="./assets/images/salon/mv-03.jpg" alt="やわらかく波打つロングヘア" class="c-ofiCover c-tone" style="object-position: 40% 40%;">
+          </div>
+        </div>
+      </div>
+      <!-- 窓辺の葉の影（木漏れ日） -->
+      <div class="p-mv__shade" aria-hidden="true">
+        <svg viewBox="0 0 600 600" preserveAspectRatio="xMidYMid slice">
+          <g class="p-mv__leaves">
+            <path d="M120 40c40 30 50 90 10 130-30-40-40-90-10-130Z" />
+            <path d="M200 90c50 10 80 60 60 110-45-15-70-60-60-110Z" />
+            <path d="M80 190c45-5 85 30 90 75-45 5-85-25-90-75Z" />
+            <path d="M260 230c30 35 25 90-15 115-25-40-20-85 15-115Z" />
+            <path d="M150 300c45 15 65 65 45 105-40-20-60-60-45-105Z" />
+            <path d="M330 120c40 20 55 70 30 105-35-25-50-65-30-105Z" />
+            <path d="M40 360c40 0 75 35 75 75-40 0-75-35-75-75Z" />
+            <path d="M5 0l230 600" class="p-mv__stem" />
+            <path d="M120 0l120 480" class="p-mv__stem" />
+          </g>
+        </svg>
+      </div>
+      <div class="p-mv__inner">
+        <h1 class="p-mv__title js-split">髪から、<br>わたしらしく。</h1>
+        <p class="p-mv__text">日々を美しく整えるのは、<br>髪と、少しのやさしい時間。<br>Mellune は、ひとりひとりの<br class="u-pcNone">らしさに寄り添い、<br>つい鏡を見たくなる毎日をつくります。</p>
+      </div>
+      <p class="p-mv__script" aria-hidden="true">
+        <span>Hair</span>
+        <span>for a</span>
+        <span>Brighter</span>
+        <span>You.</span>
+      </p>
+      <a href="#concept" class="p-mv__scroll" aria-label="コンセプトへスクロール">
+        <svg class="p-mv__scrollRing" viewBox="0 0 100 100" aria-hidden="true">
+          <defs><path id="scrollCircle" d="M50 50m-38 0a38 38 0 1 1 76 0a38 38 0 1 1-76 0" /></defs>
+          <text><textPath href="#scrollCircle">SCROLL DOWN ・ SCROLL DOWN ・ </textPath></text>
+        </svg>
+        <span class="p-mv__scrollArrow" aria-hidden="true"></span>
+      </a>
+      <ol class="p-mv__dots" id="js-mvDots">
+        <li><button type="button" class="p-mv__dot is-active" aria-label="1枚目の写真"><span></span></button></li>
+        <li><button type="button" class="p-mv__dot" aria-label="2枚目の写真"><span></span></button></li>
+        <li><button type="button" class="p-mv__dot" aria-label="3枚目の写真"><span></span></button></li>
+      </ol>
+    </section>
+
+    <!-- CONCEPT -->
+    <section class="p-concept" id="concept">
+      <svg class="p-concept__strand c-strand js-strand" viewBox="0 0 1200 520" preserveAspectRatio="none" aria-hidden="true">
+        <path pathLength="1" d="M-20 470C160 420 210 300 380 320s230 170 420 90 200-260 420-320" />
+      </svg>
+      <div class="p-concept__inner">
+        <div class="p-concept__images">
+          <div class="p-concept__img --a c-comb iv">
+            <div class="c-zoom">
+              <img src="./assets/images/salon/concept-01.jpg" alt="レースのカーテン越しにやわらかな光が入る窓辺" class="c-ofiCover c-tone" style="object-position: 70% center;">
+            </div>
+          </div>
+          <div class="p-concept__img --b c-comb iv">
+            <div class="c-zoom">
+              <img src="./assets/images/salon/concept-02.jpg" alt="白い壁に掛けた丸い鏡とグリーン" class="c-ofiCover c-tone">
+            </div>
+          </div>
+        </div>
+        <div class="p-concept__content">
+          <h2 class="c-title">
+            <span class="c-title__en iv"><span>CONCEPT</span></span>
+            <span class="c-title__ja iv js-split">髪を整えることは、<br>暮らしを整えること。</span>
+          </h2>
+          <p class="p-concept__text c-fade iv">Mellune は、髪を通して毎日が少しずつ<br class="u-spNone">好きになっていく、そんなきっかけをつくる場所です。<br>髪と心にやさしい時間を届けるために、<br class="u-spNone">丁寧なカウンセリングと、心地よい空間で<br class="u-spNone">お迎えしています。</p>
+          <a href="#style" class="c-link c-fade iv">コンセプトをみる<span class="c-link__line" aria-hidden="true"></span></a>
+        </div>
+        <div class="p-concept__texture c-comb iv" style="--comb: #ebe5dc;">
+          <div class="c-zoom">
+            <img src="./assets/images/salon/concept-03.jpg" alt="" class="c-ofiCover c-tone">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- STYLE -->
+    <section class="p-style" id="style">
+      <div class="p-style__inner">
+        <div class="p-style__head">
+          <h2 class="c-title">
+            <span class="c-title__en iv"><span>STYLE</span></span>
+            <span class="c-title__ja iv js-split">その人らしさが、<br>いちばん美しい。</span>
+          </h2>
+          <p class="p-style__text c-fade iv">ナチュラルで、どこか抜け感のあるスタイル。<br>Mellune が大切にしているのは、<br class="u-spNone">その人らしい美しさです。</p>
+          <a href="#menu" class="c-link c-fade iv">スタイルをみる<span class="c-link__line" aria-hidden="true"></span></a>
+        </div>
+        <div class="p-style__sliderWrap">
+          <div class="p-style__viewport" id="js-styleViewport">
+            <ul class="p-style__list iv" id="js-styleTrack">
+              <li class="p-styleCard">
+                <div class="p-styleCard__img"><img src="./assets/images/salon/style-natural.jpg" alt="ゆるく波打つナチュラルなミディアムヘア" class="c-ofiCover c-tone" style="object-position: 60% center;" draggable="false"></div>
+                <p class="p-styleCard__name c-fontEn">NATURAL</p>
+                <p class="p-styleCard__note">ゆるいウェーブで、乾かすだけの日も様に</p>
+              </li>
+              <li class="p-styleCard">
+                <div class="p-styleCard__img"><img src="./assets/images/salon/style-long.jpg" alt="毛先まで艶のあるストレートロング" class="c-ofiCover c-tone" style="object-position: 30% center;" draggable="false"></div>
+                <p class="p-styleCard__name c-fontEn">LONG</p>
+                <p class="p-styleCard__note">重さを残して、毛先だけ軽やかに</p>
+              </li>
+              <li class="p-styleCard">
+                <div class="p-styleCard__img"><img src="./assets/images/salon/style-short.jpg" alt="首すじが見える軽いショートヘア" class="c-ofiCover c-tone" style="object-position: 40% 20%;" draggable="false"></div>
+                <p class="p-styleCard__name c-fontEn">SHORT</p>
+                <p class="p-styleCard__note">耳まわりをすっきり、えり足は柔らかく</p>
+              </li>
+              <li class="p-styleCard">
+                <div class="p-styleCard__img"><img src="./assets/images/salon/style-bob.jpg" alt="外ハネのウェーブボブの後ろ姿" class="c-ofiCover c-tone" style="object-position: 30% 30%;" draggable="false"></div>
+                <p class="p-styleCard__name c-fontEn">BOB</p>
+                <p class="p-styleCard__note">ワンレングスにニュアンスの波を</p>
+              </li>
+              <li class="p-styleCard">
+                <div class="p-styleCard__img"><img src="./assets/images/salon/style-arrange.jpg" alt="無造作にまとめたお団子ヘア" class="c-ofiCover c-tone" style="object-position: 50% 80%;" draggable="false"></div>
+                <p class="p-styleCard__name c-fontEn">ARRANGE</p>
+                <p class="p-styleCard__note">お出かけ前のまとめ髪も</p>
+              </li>
+            </ul>
+          </div>
+          <div class="p-style__control c-fade iv">
+            <span class="p-style__bar"><span class="p-style__barInner" id="js-styleBar"></span></span>
+            <div class="p-style__arrows">
+              <button type="button" class="c-arrow --prev" id="js-stylePrev" aria-label="前のスタイル"><span></span></button>
+              <button type="button" class="c-arrow --next" id="js-styleNext" aria-label="次のスタイル"><span></span></button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- MENU -->
+    <section class="p-menu" id="menu">
+      <div class="p-menu__img c-comb iv" style="--comb: #e3dbd0;">
+        <div class="c-zoom">
+          <img src="./assets/images/salon/menu.jpg" alt="壁に並べて掛けられたハサミ" class="c-ofiCover c-tone">
+        </div>
+      </div>
+      <div class="p-menu__content">
+        <h2 class="c-title">
+          <span class="c-title__en iv"><span>MENU</span></span>
+          <span class="c-title__ja iv js-split">髪も、時間も、<br>心地よく。</span>
+        </h2>
+        <p class="p-menu__text c-fade iv">カット、カラー、トリートメントまで。<br>髪と心をやさしく整えるためのメニューを揃えています。</p>
+        <ul class="p-menu__list iv">
+          <li class="p-menu__row"><span class="p-menu__en c-fontEn">Cut</span><span class="p-menu__ja">似合わせカット</span></li>
+          <li class="p-menu__row"><span class="p-menu__en c-fontEn">Color</span><span class="p-menu__ja">透明感カラー / グレイカラー</span></li>
+          <li class="p-menu__row"><span class="p-menu__en c-fontEn">Treatment</span><span class="p-menu__ja">髪質改善トリートメント</span></li>
+          <li class="p-menu__row"><span class="p-menu__en c-fontEn">Head Spa</span><span class="p-menu__ja">ヘッドスパ</span></li>
+        </ul>
+        <a href="#reserve" class="c-link --snip c-fade iv">
+          <svg class="c-snip" viewBox="0 0 22 22" aria-hidden="true">
+            <g class="c-snip__blade --a"><circle cx="5" cy="17" r="3" /><path d="M7.2 15 21 4" /></g>
+            <g class="c-snip__blade --b"><circle cx="5" cy="5" r="3" /><path d="M7.2 7 21 18" /></g>
+          </svg>
+          メニューをみる<span class="c-link__line" aria-hidden="true"></span>
+        </a>
+      </div>
+    </section>
+
+    <!-- STAFF -->
+    <section class="p-staff" id="staff">
+      <div class="p-staff__content">
+        <h2 class="c-title">
+          <span class="c-title__en iv"><span>STAFF</span></span>
+          <span class="c-title__ja iv js-split">あなたに寄り添う、<br>スタイリスト。</span>
+        </h2>
+        <p class="p-staff__text c-fade iv">経験豊富なスタイリストが、<br>髪質やライフスタイルに合わせて、<br>あなただけのスタイルをご提案します。</p>
+        <ul class="p-staff__points c-fade iv">
+          <li>髪質と骨格を見る、ていねいなカウンセリング</li>
+          <li>自宅でも再現しやすいスタイル提案</li>
+        </ul>
+        <a href="#salon" class="c-link c-fade iv">スタッフをみる<span class="c-link__line" aria-hidden="true"></span></a>
+      </div>
+      <div class="p-staff__img c-comb iv">
+        <div class="c-zoom">
+          <img src="./assets/images/salon/staff.jpg" alt="毛束を指にとり、ハサミを入れるスタイリストの手元" class="c-ofiCover c-tone">
+        </div>
+      </div>
+    </section>
+
+    <!-- SALON -->
+    <section class="p-salon" id="salon">
+      <svg class="p-salon__strand c-strand js-strand" viewBox="0 0 1200 400" preserveAspectRatio="none" aria-hidden="true">
+        <path pathLength="1" d="M1240 40C1040 60 980 200 820 190S600 40 440 120 260 360 -40 330" />
+      </svg>
+      <div class="p-salon__images">
+        <div class="p-salon__img --main c-comb iv">
+          <div class="c-zoom">
+            <img src="./assets/images/salon/salon-01.jpg" alt="白い椅子が並ぶ明るいセット面" class="c-ofiCover c-tone">
+          </div>
+        </div>
+        <div class="p-salon__img --sub1 c-comb iv">
+          <div class="c-zoom">
+            <img src="./assets/images/salon/salon-02.jpg" alt="ベンチに畳んで置かれた白いタオル" class="c-ofiCover c-tone" style="object-position: 20% center;">
+          </div>
+        </div>
+        <div class="p-salon__img --sub2 c-comb iv">
+          <div class="c-zoom">
+            <img src="./assets/images/salon/salon-03.jpg" alt="一輪挿しのダリア" class="c-ofiCover c-tone" style="object-position: 30% center;">
+          </div>
+        </div>
+      </div>
+      <div class="p-salon__content">
+        <h2 class="c-title">
+          <span class="c-title__en iv"><span>SALON</span></span>
+          <span class="c-title__ja iv js-split">日常から少し離れた、<br>心地よい空間。</span>
+        </h2>
+        <p class="p-salon__text c-fade iv">やわらかな光が差し込む、落ち着いた空間で、<br>あなただけの特別な時間をお過ごしください。</p>
+        <a href="#news" class="c-link c-fade iv">サロンをみる<span class="c-link__line" aria-hidden="true"></span></a>
+      </div>
+    </section>
+
+    <!-- NEWS -->
+    <section class="p-news" id="news">
+      <div class="p-news__inner">
+        <h2 class="c-title p-news__title">
+          <span class="c-title__en iv"><span>NEWS</span></span>
+          <span class="c-title__ja iv js-split">お知らせ</span>
+        </h2>
+        <div class="p-news__body">
+          <ul class="p-news__list iv">
+            <li>
+              <a href="#" class="p-news__item">
+                <time class="p-news__date c-fontEn" datetime="2026-10-10">2026.10.10</time>
+                <span class="p-news__ttl">11月のご予約受付を開始しました</span>
+                <span class="p-news__arrow" aria-hidden="true"></span>
+              </a>
+            </li>
+            <li>
+              <a href="#" class="p-news__item">
+                <time class="p-news__date c-fontEn" datetime="2026-09-22">2026.09.22</time>
+                <span class="p-news__ttl">秋のヘッドスパメニューを追加しました</span>
+                <span class="p-news__arrow" aria-hidden="true"></span>
+              </a>
+            </li>
+            <li>
+              <a href="#" class="p-news__item">
+                <time class="p-news__date c-fontEn" datetime="2026-08-30">2026.08.30</time>
+                <span class="p-news__ttl">年末年始の営業について</span>
+                <span class="p-news__arrow" aria-hidden="true"></span>
+              </a>
+            </li>
+          </ul>
+          <a href="#" class="c-link p-news__more c-fade iv">一覧をみる<span class="c-link__line" aria-hidden="true"></span></a>
+        </div>
+      </div>
+      <div class="p-news__img c-comb iv" style="--comb: #ebe5dc;">
+        <div class="c-zoom">
+          <img src="./assets/images/salon/news.jpg" alt="" class="c-ofiCover c-tone">
+        </div>
+        <p class="p-news__stamp c-fontEn" aria-hidden="true">Mellune<span>hair atelier</span></p>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="l-footer" id="reserve">
+    <div class="l-footer__bg" aria-hidden="true">
+      <img src="./assets/images/salon/footer.jpg" alt="" class="c-ofiCover">
+    </div>
+    <div class="l-footer__cta">
+      <a href="./" class="l-footer__logo c-fade iv">
+        <span class="l-footer__logoMain c-fontEn">Mellune</span>
+        <span class="l-footer__logoSub c-fontEn">hair atelier</span>
+      </a>
+      <div class="c-fade iv">
+        <p class="l-footer__message">一人ひとりの、<br>日常にやさしく寄り添う場所で<br>お待ちしています。</p>
+        <div class="l-footer__buttons">
+          <a href="#" class="c-button --sand --ja js-ripple"><span class="c-button__text">ご予約はこちら</span><span class="c-button__arrow" aria-hidden="true"></span></a>
+          <a href="#" class="c-button --outlineLight --ja js-ripple"><span class="c-button__text">お問い合わせ</span><span class="c-button__arrow" aria-hidden="true"></span></a>
+        </div>
+      </div>
+    </div>
+    <div class="l-footer__bottom">
+      <nav class="l-footer__nav" aria-label="フッターメニュー">
+        <ul class="l-footer__navList">
+          <li><a href="#concept">CONCEPT</a></li>
+          <li><a href="#style">STYLE</a></li>
+          <li><a href="#menu">MENU</a></li>
+          <li><a href="#staff">STAFF</a></li>
+          <li><a href="#salon">SALON</a></li>
+          <li><a href="#news">NEWS</a></li>
+        </ul>
+      </nav>
+      <ul class="l-footer__sns">
+        <li>
+          <a href="#" aria-label="Instagram">
+            <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="3" y="3" width="18" height="18" rx="5" /><circle cx="12" cy="12" r="4" /><circle cx="17.5" cy="6.5" r="0.9" fill="currentColor" stroke="none" /></svg>
+          </a>
+        </li>
+        <li>
+          <a href="#" aria-label="YouTube">
+            <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="2.5" y="5.5" width="19" height="13" rx="3.5" /><path d="M10 9.2v5.6l4.8-2.8Z" fill="currentColor" stroke="none" /></svg>
+          </a>
+        </li>
+        <li>
+          <a href="#" aria-label="メールでお問い合わせ">
+            <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="3" y="5.5" width="18" height="13" rx="1.5" /><path d="m3.5 6.5 8.5 6.5 8.5-6.5" /></svg>
+          </a>
+        </li>
+      </ul>
+    </div>
+    <p class="l-footer__copy"><small class="c-fontEn">&copy; 2026 Mellune hair atelier</small>※ポートフォリオ用に制作した架空の美容院サイトです。</p>
+  </footer>
+
+  <script src="./assets/js/lib.js"></script>
+  <script src="./assets/js/scripts.min.js"></script>
+</body>
+
+</html>

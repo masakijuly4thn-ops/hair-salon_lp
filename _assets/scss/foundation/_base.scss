@@ -1,0 +1,128 @@
+@charset "utf-8";
+@use "mixin" as m;
+@use "color" as c;
+
+$fontMincho: "Shippori Mincho", "Yu Mincho", "游明朝", YuMincho, "Hiragino Mincho ProN", "HGS明朝E", serif;
+
+* {
+  letter-spacing: 0.08em;
+  line-height: 1.6;
+  box-sizing: border-box;
+  color: inherit;
+  -webkit-appearance: none;
+  @include m.mq(tab) {
+    line-height: 1.65;
+  }
+}
+.preload * {
+  transition: none !important;
+}
+html {
+  width: 100%;
+  /* ルートのフォントサイズを10pxに設定 */
+  font-size: 62.5%;
+  @include m.mq(tab-l) {
+    font-size: 61.5%;
+  }
+  @include m.mq(tab) {
+    font-size: 58%;
+  }
+}
+
+body {
+  margin: 0px;
+  overflow-x: hidden;
+  font-size: 1.6rem;
+  color: c.$text;
+  background-color: c.$base;
+  font-family: $fontMincho;
+  font-feature-settings: "palt";
+  -webkit-font-smoothing: antialiased;
+  // ローディング中はスクロールさせない
+  &.is-loading {
+    overflow: hidden;
+  }
+}
+
+select,
+option,
+span,
+h1,
+h2,
+h3,
+h4,
+h5,
+p,
+input,
+textarea,
+button {
+  font-family: $fontMincho;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  transition: 0.4s;
+}
+@media print {
+  a[href]:after {
+    content: none !important;
+  }
+}
+
+input[type="text"],
+textarea {
+  -webkit-appearance: none;
+  border: none;
+}
+textarea {
+  resize: none;
+}
+button,
+select,
+input,
+a {
+  @include m.mq(tab-l) {
+    -webkit-tap-highlight-color: transparent;
+  }
+}
+button,
+select,
+input,
+input[type="submit"] {
+  -webkit-appearance: none;
+  background-color: transparent;
+  border: none;
+  border-radius: 0;
+  padding: 0;
+  cursor: pointer;
+}
+
+select::-ms-expand {
+  display: none;
+}
+
+img {
+  display: block;
+  height: auto;
+  max-width: 100%;
+}
+
+section {
+  position: relative;
+}
+
+// フリー素材の色味を揃えるため、写真全体に同じトーンをかける
+.c-tone {
+  filter: sepia(0.16) saturate(0.82) contrast(0.96) brightness(1.02);
+}
+
+::selection {
+  background-color: rgba(c.$taupe, 0.4);
+  color: c.$text;
+}
+
+:focus-visible {
+  outline: 1px solid c.$taupe;
+  outline-offset: 4px;
+}

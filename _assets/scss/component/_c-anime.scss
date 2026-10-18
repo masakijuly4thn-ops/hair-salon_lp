@@ -1,0 +1,112 @@
+@charset "utf-8";
+@use "../foundation/mixin" as m;
+@use "../foundation/color" as c;
+
+// .iv が画面内に入ると scripts.js が .view を付与する
+// .js-split は scripts.js が <br> ごとに <span class="line" style="--l:n"> で包む
+
+// グラデーションのマスク位置をなめらかに動かすための登録
+@property --sweep {
+  syntax: "<percentage>";
+  inherits: false;
+  initial-value: 0%;
+}
+@property --strand {
+  syntax: "<length>";
+  inherits: false;
+  initial-value: 0px;
+}
+@property --hole {
+  syntax: "<length>";
+  inherits: false;
+  initial-value: 0px;
+}
+
+// 見出しの「筆でなでる」表示は mixin.scss の brush を使う
+.js-split .line {
+  display: block;
+}
+
+// ---------- 上から下へ、紙に光が落ちるように現れる（本文・リンク）
+.c-fade {
+  -webkit-mask-image: linear-gradient(180deg, #000 calc(var(--sweep) - 40%), transparent var(--sweep));
+  mask-image: linear-gradient(180deg, #000 calc(var(--sweep) - 40%), transparent var(--sweep));
+  transition: --sweep 1.8s m.$easeOutSine 0.5s;
+  &.view {
+    --sweep: 140%;
+  }
+}
+
+// ---------- コームを通すように、縦の歯が順に抜けて写真が現れる
+// scripts.js が .c-comb の中に <span class="c-comb__teeth"><i></i>…</span> を差し込む
+// ※ 親要素自体を clip-path で隠すと IntersectionObserver が交差を検知しないため、子要素で表現
+.c-comb {
+  position: relative;
+  overflow: hidden;
+}
+.c-comb__teeth {
+  position: absolute;
+  inset: -1px;
+  z-index: 3;
+  display: flex;
+  pointer-events: none;
+  i {
+    flex: 1;
+    height: 100%;
+    // 隣の歯と隙間が出ないよう少しだけ重ねる
+    margin-right: -1px;
+    background-color: var(--comb, #{c.$base});
+    transform-origin: center bottom;
+    transition: transform 1.1s m.$easeInOutQuart;
+    transition-delay: calc(var(--n) * 0.07s);
+  }
+  .view > & i {
+    transform: scaleY(0);
+  }
+  // 歯が抜けたあとは描画コストを下げるため非表示
+  .is-combed > & {
+    display: none;
+  }
+}
+
+// ---------- ピント合わせ：画面の中央に近づくほど、写真が静かに引き締まる（scripts.js が --z を更新）
+.c-zoom {
+  position: absolute;
+  inset: 0;
+  transform: scale(var(--z, 1.08));
+  will-change: transform;
+}
+
+// ---------- 髪のひと筋のような線を、スクロール量に合わせて描く（scripts.js が --draw: 0〜1 を更新）
+.c-strand {
+  position: absolute;
+  pointer-events: none;
+  overflow: visible;
+  path {
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1;
+    stroke-linecap: round;
+    stroke-dasharray: 1;
+    stroke-dashoffset: calc(1 - var(--draw, 0));
+    vector-effect: non-scaling-stroke;
+  }
+}
+
+// ---------- 動きを減らす設定のユーザーにはアニメーションを無効化
+@media (prefers-reduced-motion: reduce) {
+  .c-fade,
+  .js-split .line {
+    -webkit-mask-image: none !important;
+    mask-image: none !important;
+  }
+  .c-comb__teeth {
+    display: none;
+  }
+  .c-zoom {
+    transform: none;
+  }
+  .c-strand path {
+    stroke-dashoffset: 0;
+  }
+}

@@ -1,0 +1,23 @@
+画像はすべて StockSnap.io（CC0 / パブリックドメイン）の写真です。
+商用利用可・クレジット表記不要ですが、出典管理のため記録しています。
+https://stocksnap.io/license
+
+ファイル名        StockSnap ID   撮影者
+mv-01.jpg         ILP6CFYHQI     Magdalena
+mv-02.jpg         D5CG6JAYN3     Healthy Living
+mv-03.jpg         XIEZSFATU3     Matt Moloney
+concept-01.jpg    06OAHLI7B4     Eduard Militaru
+concept-02.jpg    JRHSFSKQZQ     Studio 7042
+concept-03.jpg    45LHL6A7ZQ     RKTKN
+style-natural.jpg IFMPBCVTUA     Candace McDaniel
+style-long.jpg    LUTLWZJTAU     Christian Mackie
+style-short.jpg   MK72WQXVOE     Christian Mackie
+style-bob.jpg     LZATFX5K7O     Candace McDaniel
+style-arrange.jpg I9AW11TY89     Kasia Serbin
+menu.jpg          R9YRHH2JQY     Nick Demou
+staff.jpg         S7UEWWIRTD     Matt Moloney
+salon-01.jpg      0AA03E91E8     Leeroy
+salon-02.jpg      811926DC8B     Leeroy
+salon-03.jpg      4NWBZUBC8K     (StockSnap)
+news.jpg          MUNCW5ZFUZ     Kristin Hardwick
+footer.jpg        BWFSJ3Y6AR     Kelly Ishmael

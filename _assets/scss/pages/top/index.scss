@@ -1,0 +1,1014 @@
+@charset "utf-8";
+@use "../../foundation/mixin" as m;
+@use "../../foundation/color" as c;
+
+// 横幅いっぱいの写真と、文字の段組みの左右余白
+$side: max(calc((100% - 1320px) / 2), 4%);
+
+/* ==========================================================================
+   MV
+   ========================================================================== */
+.p-mv {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 100vh;
+  height: 100svh;
+  min-height: 620px;
+  max-height: 920px;
+  overflow: hidden;
+  isolation: isolate;
+  background-color: c.$paper;
+  @include m.mq(s-t) {
+    align-items: flex-end;
+    min-height: 600px;
+    padding-bottom: 120px;
+  }
+}
+
+// ---------- アーチ型の鏡が、ゆっくり開いて写真が広がる
+.p-mv__frame {
+  position: absolute;
+  inset: 0 0 0 30%;
+  z-index: -2;
+  overflow: hidden;
+  clip-path: inset(18% 32% 0% 32% round 999px 999px 0 0);
+  transition: clip-path 2.4s m.$easeInOutQuart 0.9s;
+  @include m.mq(s-t) {
+    inset: 0;
+    clip-path: inset(14% 22% 30% 22% round 999px 999px 0 0);
+  }
+  .is-loaded & {
+    clip-path: inset(0% 0% 0% 0% round 0 0 0 0);
+  }
+  // 左側を生成りに溶かし、見出しを読みやすく
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 5;
+    background:
+      linear-gradient(90deg, rgba(c.$paper, 1) 0%, rgba(c.$paper, 0.75) 14%, rgba(c.$paper, 0) 36%),
+      linear-gradient(0deg, rgba(c.$paper, 0.35) 0%, rgba(c.$paper, 0) 25%);
+    opacity: 0;
+    transition: opacity 1.6s ease 2.4s;
+    @include m.mq(s-t) {
+      background: linear-gradient(0deg, rgba(c.$paper, 0.97) 18%, rgba(c.$paper, 0.6) 46%, rgba(c.$paper, 0) 72%);
+    }
+  }
+  .is-loaded &::after {
+    opacity: 1;
+  }
+}
+.p-mv__slider {
+  position: absolute;
+  inset: 0;
+  // スクロールすると、鏡の中の像が少し遠ざかる
+  transform: scale(calc(1 + var(--mv, 0) * 0.06));
+  transform-origin: center top;
+}
+// ---------- 写真の切り替え：細い毛束がほどけるように、縦の筋が広がって次の写真になる
+.p-mv__slide {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  visibility: hidden;
+  &.is-active {
+    z-index: 2;
+    visibility: visible;
+    -webkit-mask-image: repeating-linear-gradient(90deg, #000 0 var(--strand), transparent var(--strand) 22px);
+    mask-image: repeating-linear-gradient(90deg, #000 0 var(--strand), transparent var(--strand) 22px);
+    animation: mvStrand 1.8s m.$easeInOutCubic forwards;
+    img {
+      animation: mvSettle 2.4s m.$easeOutCubic forwards;
+    }
+  }
+  // 1つ前のスライドは下に残したまま
+  &.is-prev {
+    z-index: 1;
+    visibility: visible;
+  }
+  // 最初の1枚は鏡が開く演出に任せる
+  &.is-first {
+    -webkit-mask-image: none;
+    mask-image: none;
+    animation: none;
+    img {
+      animation: none;
+    }
+  }
+}
+@keyframes mvStrand {
+  from {
+    --strand: 0px;
+  }
+  to {
+    --strand: 23px;
+  }
+}
+// 筋が広がる間、写真がわずかに下へ落ち着く
+@keyframes mvSettle {
+  from {
+    transform: translateY(-2.5%) scale(1.04);
+  }
+  to {
+    transform: translateY(0) scale(1);
+  }
+}
+
+// ---------- 窓辺の葉の影：風を受けたように、ゆっくり揺れ続ける
+.p-mv__shade {
+  position: absolute;
+  top: -10%;
+  right: -6%;
+  z-index: -1;
+  width: min(760px, 60vw);
+  height: 120%;
+  color: #3a3226;
+  opacity: 0;
+  mix-blend-mode: multiply;
+  filter: blur(18px);
+  pointer-events: none;
+  transition: opacity 3s ease 2.6s;
+  .is-loaded & {
+    opacity: 0.09;
+  }
+  @include m.mq(s-t) {
+    width: 100vw;
+    right: -30%;
+  }
+  svg {
+    width: 100%;
+    height: 100%;
+  }
+  path {
+    fill: currentColor;
+  }
+  .p-mv__stem {
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 5;
+  }
+}
+.p-mv__leaves {
+  transform-origin: 10% 0%;
+  animation: shadeSway 9s m.$easeInOutSine infinite alternate;
+}
+@keyframes shadeSway {
+  0% {
+    transform: rotate(-2deg) translate(0, 0);
+  }
+  40% {
+    transform: rotate(1.5deg) translate(6px, 4px);
+  }
+  70% {
+    transform: rotate(-0.5deg) translate(-4px, 8px);
+  }
+  100% {
+    transform: rotate(2.5deg) translate(4px, -2px);
+  }
+}
+
+.p-mv__inner {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  padding: 40px $side 0;
+  // スクロールすると、少しずつ薄れていく
+  opacity: calc(1 - var(--mv, 0) * 1.6);
+  @include m.mq(s-t) {
+    padding: 0 6%;
+  }
+}
+// 行ごとに、筆でなでるように左からにじみ出る
+.p-mv__title {
+  font-size: 4.6rem;
+  font-weight: 500;
+  line-height: 1.6;
+  letter-spacing: 0.2em;
+  @include m.mq(tab-l) {
+    font-size: 4rem;
+  }
+  @include m.mq(sm) {
+    font-size: 3.2rem;
+  }
+  .line {
+    @include m.brush(2.2s, 2.2s);
+    .is-loaded & {
+      --sweep: 130%;
+    }
+  }
+}
+.p-mv__text {
+  margin-top: 30px;
+  font-size: 1.35rem;
+  line-height: 2.3;
+  color: c.$textSub;
+  -webkit-mask-image: linear-gradient(180deg, #000 calc(var(--sweep) - 40%), transparent var(--sweep));
+  mask-image: linear-gradient(180deg, #000 calc(var(--sweep) - 40%), transparent var(--sweep));
+  transition: --sweep 2.2s m.$easeOutSine 3.2s;
+  .is-loaded & {
+    --sweep: 140%;
+  }
+  @include m.mq(sm) {
+    margin-top: 20px;
+    font-size: 1.3rem;
+  }
+}
+// 筆記体：一行ずつ、斜めになでるようににじみ出る
+.p-mv__script {
+  position: absolute;
+  right: max(calc((100% - 1320px) / 2), 3%);
+  top: 54%;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  font-family: "Mrs Saint Delafield", cursive;
+  font-size: clamp(4rem, 4.6vw, 6.6rem);
+  line-height: 0.95;
+  letter-spacing: 0;
+  color: rgba(c.$text, 0.5);
+  transform: rotate(-12deg);
+  pointer-events: none;
+  @include m.mq(s-t) {
+    top: 80px;
+    right: 6%;
+    font-size: 4rem;
+  }
+  span {
+    display: block;
+    font-family: inherit;
+    letter-spacing: 0;
+    -webkit-mask-image: linear-gradient(110deg, #000 calc(var(--sweep) - 25%), transparent var(--sweep));
+    mask-image: linear-gradient(110deg, #000 calc(var(--sweep) - 25%), transparent var(--sweep));
+    @for $i from 1 through 4 {
+      &:nth-child(#{$i}) {
+        transition: --sweep 1.4s m.$easeInOutSine #{3.4 + ($i - 1) * 0.5}s;
+      }
+    }
+    &:nth-child(2) {
+      padding-left: 0.3em;
+    }
+    &:nth-child(3) {
+      padding-left: 0.6em;
+    }
+    &:nth-child(4) {
+      padding-left: 1.8em;
+    }
+    .is-loaded & {
+      --sweep: 125%;
+    }
+  }
+}
+// スクロール誘導：円形に並んだ文字が、ゆっくり回り続ける
+.p-mv__scroll {
+  position: absolute;
+  left: $side;
+  bottom: 28px;
+  z-index: 3;
+  width: 92px;
+  height: 92px;
+  opacity: 0;
+  transition: opacity 1.4s 4s;
+  .is-loaded & {
+    opacity: 1;
+  }
+  @include m.mq(s-t) {
+    left: 6%;
+    bottom: 20px;
+    width: 76px;
+    height: 76px;
+  }
+  &:hover .p-mv__scrollArrow {
+    transform: translate(-50%, -30%);
+  }
+}
+.p-mv__scrollRing {
+  width: 100%;
+  height: 100%;
+  animation: scrollRotate 16s linear infinite;
+  text {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 9px;
+    letter-spacing: 0.3em;
+    fill: c.$textSub;
+  }
+}
+@keyframes scrollRotate {
+  to {
+    transform: rotate(360deg);
+  }
+}
+// 中央の下向き矢印
+.p-mv__scrollArrow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 1px;
+  height: 22px;
+  background-color: c.$text;
+  transform: translate(-50%, -50%);
+  transition: transform 0.6s m.$easeOutQuart;
+  &::after {
+    content: "";
+    position: absolute;
+    left: -3px;
+    bottom: 0;
+    width: 7px;
+    height: 7px;
+    border-right: 1px solid c.$text;
+    border-bottom: 1px solid c.$text;
+    transform: rotate(45deg);
+  }
+}
+
+// ---------- ページャー：細い線が3本。表示中の線だけ長くなり、その中で時間が満ちる
+.p-mv__dots {
+  position: absolute;
+  right: $side;
+  bottom: 40px;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  opacity: 0;
+  transition: opacity 1.4s 4s;
+  .is-loaded & {
+    opacity: 1;
+  }
+  @include m.mq(s-t) {
+    right: 6%;
+    bottom: 50px;
+  }
+}
+.p-mv__dot {
+  display: block;
+  padding: 12px 0;
+  span {
+    position: relative;
+    display: block;
+    width: 18px;
+    height: 1px;
+    background-color: c.$line;
+    overflow: hidden;
+    transition: width 0.9s m.$easeInOutQuart;
+    &::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-color: c.$text;
+      transform: scaleX(0);
+      transform-origin: left center;
+    }
+  }
+  &:hover span {
+    background-color: rgba(c.$text, 0.5);
+  }
+  &.is-active span {
+    width: 64px;
+  }
+  &.is-running span::after {
+    animation: mvTimer var(--duration, 6s) linear forwards;
+  }
+}
+@keyframes mvTimer {
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .p-mv__frame {
+    clip-path: none !important;
+  }
+  .p-mv__slide.is-active,
+  .p-mv__slide.is-active img,
+  .p-mv__leaves,
+  .p-mv__scrollRing {
+    animation: none;
+  }
+  .p-mv__slide.is-active {
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
+  .p-mv__title .line,
+  .p-mv__text,
+  .p-mv__script span {
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
+}
+
+/* ==========================================================================
+   CONCEPT
+   ========================================================================== */
+.p-concept {
+  --comb: #{c.$paper};
+  padding: 0;
+  background-color: c.$paper;
+  overflow: hidden;
+  @include m.mq(tab) {
+    padding-bottom: 72px;
+  }
+}
+// 髪のひと筋
+.p-concept__strand {
+  inset: 8% 0 auto 0;
+  width: 100%;
+  height: 85%;
+  color: rgba(c.$taupe, 0.55);
+}
+.p-concept__inner {
+  position: relative;
+  display: grid;
+  grid-template-columns: 47% 1fr 14%;
+  align-items: center;
+  gap: 4%;
+  @include m.mq(tab-l) {
+    grid-template-columns: 50% 1fr;
+  }
+  @include m.mq(tab) {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+}
+.p-concept__images {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  height: 460px;
+  @include m.mq(tab) {
+    height: 72vw;
+  }
+}
+.p-concept__img {
+  position: relative;
+  height: 100%;
+  overflow: hidden;
+  &.--b {
+    // 少しだけ高さをずらして、並びに呼吸をつくる
+    margin-top: 0;
+    border-left: 6px solid c.$paper;
+  }
+}
+.p-concept__content {
+  padding: 72px 0;
+  @include m.mq(tab) {
+    padding: 0 6%;
+  }
+}
+.p-concept__text {
+  margin: 28px 0 34px;
+  font-size: 1.3rem;
+  line-height: 2.3;
+  color: c.$textSub;
+}
+.p-concept__texture {
+  align-self: start;
+  height: 300px;
+  margin-top: 40px;
+  @include m.mq(tab-l) {
+    display: none;
+  }
+}
+
+/* ==========================================================================
+   STYLE
+   ========================================================================== */
+.p-style {
+  padding: 80px 0 72px;
+  background-color: c.$base;
+  overflow: hidden;
+  @include m.mq(sm) {
+    padding: 72px 0 64px;
+  }
+}
+.p-style__inner {
+  display: grid;
+  grid-template-columns: 28% 1fr;
+  align-items: start;
+  gap: 4%;
+  padding-left: $side;
+  @include m.mq(tab) {
+    grid-template-columns: 1fr;
+    gap: 40px;
+    padding-left: 6%;
+  }
+}
+.p-style__head {
+  padding-top: 24px;
+  @include m.mq(tab) {
+    padding: 0 6% 0 0;
+  }
+}
+.p-style__text {
+  margin: 24px 0 30px;
+  font-size: 1.3rem;
+  line-height: 2.2;
+  color: c.$textSub;
+}
+.p-style__sliderWrap {
+  min-width: 0;
+}
+// ドラッグで横に送る（scripts.js が --x と、送る速さに応じた --skew を更新）
+.p-style__viewport {
+  overflow: hidden;
+  touch-action: pan-y;
+  user-select: none;
+  cursor: grab;
+  &.is-grabbing {
+    cursor: grabbing;
+  }
+}
+.p-style__list {
+  display: flex;
+  gap: 22px;
+  width: max-content;
+  padding-right: 6vw;
+  transform: translate3d(var(--x, 0px), 0, 0);
+  @include m.mq(sm) {
+    gap: 14px;
+  }
+}
+.p-styleCard {
+  width: clamp(200px, 17vw, 250px);
+  @include m.mq(sm) {
+    width: 62vw;
+  }
+  &:hover {
+    .p-styleCard__img img {
+      transform: scale(1.06);
+    }
+    .p-styleCard__name {
+      letter-spacing: 0.32em;
+    }
+    .p-styleCard__note {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}
+// 送る速さに合わせて写真が少したわむ（髪が風になびくような余韻）
+.p-styleCard__img {
+  aspect-ratio: 5 / 6;
+  overflow: hidden;
+  background-color: c.$base2;
+  transform: skewX(var(--skew, 0deg));
+  transform-origin: center bottom;
+  img {
+    transition: transform 1.4s m.$easeOutQuart;
+    pointer-events: none;
+  }
+  // 表示時：MVと同じく、細い毛束のような縦の筋が広がって写真になる（1枚ずつ遅れて）
+  -webkit-mask-image: repeating-linear-gradient(90deg, #000 0 var(--strand), transparent var(--strand) 16px);
+  mask-image: repeating-linear-gradient(90deg, #000 0 var(--strand), transparent var(--strand) 16px);
+  transition: --strand 1.6s m.$easeInOutCubic;
+  @for $i from 1 through 5 {
+    .p-styleCard:nth-child(#{$i}) & {
+      transition-delay: #{0.1 + ($i - 1) * 0.15}s;
+    }
+  }
+  .view & {
+    --strand: 17px;
+  }
+}
+// カードの文字は、写真のあとからぼんやり
+.p-style__list .p-styleCard__name {
+  opacity: 0;
+  transition: opacity 1.2s ease, letter-spacing 0.9s m.$easeOutQuart;
+  @for $i from 1 through 5 {
+    .p-styleCard:nth-child(#{$i}) & {
+      transition-delay: #{0.9 + ($i - 1) * 0.15}s, 0s;
+    }
+  }
+}
+.p-style__list.view .p-styleCard__name {
+  opacity: 1;
+}
+.p-styleCard__name {
+  margin-top: 14px;
+  font-size: 1.2rem;
+  letter-spacing: 0.24em;
+  transition: letter-spacing 0.9s m.$easeOutQuart;
+}
+.p-styleCard__note {
+  margin-top: 4px;
+  font-size: 1.1rem;
+  color: c.$textSub;
+  opacity: 0;
+  transform: translateY(-4px);
+  transition: opacity 0.6s, transform 0.8s m.$easeOutQuart;
+  @media (hover: none) {
+    opacity: 1;
+    transform: none;
+  }
+}
+.p-style__control {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  margin-top: 26px;
+  padding-right: $side;
+  @include m.mq(tab) {
+    padding-right: 6%;
+  }
+}
+// どこまで送ったか
+.p-style__bar {
+  position: relative;
+  flex: 1;
+  height: 1px;
+  background-color: c.$line;
+}
+.p-style__barInner {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: var(--size, 30%);
+  background-color: c.$text;
+  transform: translateX(var(--pos, 0%));
+}
+.p-style__arrows {
+  display: flex;
+  gap: 4px;
+}
+
+/* ==========================================================================
+   MENU
+   ========================================================================== */
+.p-menu {
+  --comb: #{c.$base2};
+  display: grid;
+  grid-template-columns: 57% 1fr;
+  background-color: c.$base2;
+  @include m.mq(tab) {
+    grid-template-columns: 1fr;
+  }
+}
+.p-menu__img {
+  min-height: 420px;
+  @include m.mq(tab) {
+    min-height: 0;
+    height: 62vw;
+  }
+}
+.p-menu__content {
+  padding: 48px $side 48px 6%;
+  @include m.mq(tab) {
+    padding: 56px 6% 72px;
+  }
+}
+.p-menu__text {
+  margin: 22px 0 26px;
+  font-size: 1.3rem;
+  line-height: 2.2;
+  color: c.$textSub;
+}
+// メニュー一覧：行が順に浮かび、下の点線が左から引かれる
+.p-menu__list {
+  max-width: 420px;
+  margin-bottom: 32px;
+}
+.p-menu__row {
+  position: relative;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 10px 0;
+  opacity: 0;
+  transition: opacity 1.2s m.$easeOutCubic;
+  &::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 1px;
+    background-image: linear-gradient(90deg, c.$line 50%, transparent 50%);
+    background-size: 4px 1px;
+    transform: scaleX(0);
+    transform-origin: left center;
+    transition: transform 1.4s m.$easeInOutQuart;
+  }
+  @for $i from 1 through 4 {
+    &:nth-child(#{$i}) {
+      transition-delay: #{0.3 + ($i - 1) * 0.14}s;
+      &::after {
+        transition-delay: #{0.4 + ($i - 1) * 0.14}s;
+      }
+    }
+  }
+  .view & {
+    opacity: 1;
+    &::after {
+      transform: scaleX(1);
+    }
+  }
+}
+.p-menu__en {
+  font-size: 1.5rem;
+  letter-spacing: 0.14em;
+}
+.p-menu__ja {
+  font-size: 1.15rem;
+  color: c.$textSub;
+}.c-link.--snip {
+  gap: 12px;
+  .c-link__line {
+    margin-left: 6px;
+  }
+}
+
+/* ==========================================================================
+   STAFF
+   ========================================================================== */
+.p-staff {
+  --comb: #{c.$base};
+  display: grid;
+  grid-template-columns: 1fr 53%;
+  align-items: center;
+  background-color: c.$base;
+  @include m.mq(tab) {
+    grid-template-columns: 1fr;
+  }
+}
+.p-staff__content {
+  padding: 64px 6% 64px $side;
+  @include m.mq(tab) {
+    order: 2;
+    padding: 56px 6% 72px;
+  }
+}
+.p-staff__text {
+  margin: 22px 0 26px;
+  font-size: 1.3rem;
+  line-height: 2.2;
+  color: c.$textSub;
+}
+.p-staff__points {
+  margin-bottom: 30px;
+  padding-left: 16px;
+  border-left: 1px solid c.$taupe;
+  li {
+    font-size: 1.2rem;
+    line-height: 2.1;
+    color: c.$text;
+  }
+}.p-staff__img {
+  height: 440px;
+  @include m.mq(tab) {
+    height: 64vw;
+  }
+}
+
+/* ==========================================================================
+   SALON
+   ========================================================================== */
+.p-salon {
+  --comb: #{c.$paper};
+  display: grid;
+  grid-template-columns: 62% 1fr;
+  align-items: center;
+  background-color: c.$paper;
+  overflow: hidden;
+  @include m.mq(tab) {
+    grid-template-columns: 1fr;
+  }
+}
+.p-salon__strand {
+  inset: 10% 0 auto 0;
+  width: 100%;
+  height: 80%;
+  color: rgba(c.$taupe, 0.5);
+}
+// 奥行きを出すため、3枚それぞれ違う速さで流れる
+.p-salon__images {
+  position: relative;
+  display: grid;
+  grid-template-columns: 70% 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 14px;
+  height: 460px;
+  @include m.mq(tab) {
+    height: 80vw;
+  }
+}
+.p-salon__img {
+  position: relative;
+  overflow: hidden;
+  &.--main {
+    grid-row: 1 / 3;
+  }
+  &.--sub1 {
+    margin: 0 18% 0 0;
+  }
+  &.--sub2 {
+    margin: 0 0 18% -10%;
+    box-shadow: -14px 0 0 c.$paper;
+  }
+}
+.p-salon__content {
+  position: relative;
+  padding: 64px $side 64px 8%;
+  @include m.mq(tab) {
+    padding: 56px 6% 72px;
+  }
+}
+.p-salon__text {
+  margin: 22px 0 30px;
+  font-size: 1.3rem;
+  line-height: 2.2;
+  color: c.$textSub;
+}
+
+/* ==========================================================================
+   NEWS
+   ========================================================================== */
+.p-news {
+  --comb: #{c.$base};
+  display: grid;
+  grid-template-columns: 1fr 30%;
+  align-items: stretch;
+  background-color: c.$base;
+  border-top: 1px solid c.$line;
+  @include m.mq(tab) {
+    grid-template-columns: 1fr;
+  }
+}
+.p-news__inner {
+  display: grid;
+  grid-template-columns: 22% 1fr;
+  gap: 4%;
+  padding: 48px 5% 40px $side;
+  @include m.mq(tab) {
+    grid-template-columns: 1fr;
+    gap: 28px;
+    padding: 64px 6% 48px;
+  }
+}
+.p-news__title .c-title__ja {
+  font-size: 2.3rem;
+}
+.p-news__body {
+  display: flex;
+  flex-direction: column;
+}
+// 一覧：下線が左から引かれ、追いかけるように文字が現れる
+.p-news__list li {
+  position: relative;
+  &::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 1px;
+    background-color: c.$line;
+    transform: scaleX(0);
+    transform-origin: left center;
+    transition: transform 1.4s m.$easeInOutQuart;
+  }
+  .p-news__item {
+    opacity: 0;
+    transition: opacity 1.2s ease;
+  }
+  @for $i from 1 through 5 {
+    &:nth-child(#{$i}) {
+      &::after {
+        transition-delay: #{0.2 + ($i - 1) * 0.15}s;
+      }
+      .p-news__item {
+        transition-delay: #{0.6 + ($i - 1) * 0.15}s;
+      }
+    }
+  }
+}
+.p-news__list.view li {
+  &::after {
+    transform: scaleX(1);
+  }
+  .p-news__item {
+    opacity: 1;
+  }
+}
+// ホバーで背景が下からほのかに満ち、タイトルが少し右へ
+.p-news__item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 36px;
+  padding: 14px 8px;
+  isolation: isolate;
+  @include m.mq(sm) {
+    flex-wrap: wrap;
+    gap: 4px 20px;
+  }
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background-color: rgba(c.$white, 0.35);
+    transform: scaleY(0);
+    transform-origin: center bottom;
+    transition: transform 0.6s m.$easeOutQuart;
+  }
+  &:hover {
+    &::before {
+      transform: scaleY(1);
+    }
+    .p-news__ttl {
+      transform: translateX(6px);
+    }
+    .p-news__arrow {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+}
+.p-news__date {
+  flex-shrink: 0;
+  font-size: 1.2rem;
+  letter-spacing: 0.12em;
+  color: c.$textSub;
+}
+.p-news__ttl {
+  font-size: 1.3rem;
+  transition: transform 0.7s m.$easeOutQuart;
+  @include m.mq(sm) {
+    width: 100%;
+  }
+}
+.p-news__arrow {
+  position: relative;
+  display: block;
+  flex-shrink: 0;
+  width: 22px;
+  height: 1px;
+  margin-left: auto;
+  background-color: currentColor;
+  &::after {
+    content: "";
+    position: absolute;
+    top: -3px;
+    right: 0;
+    width: 7px;
+    height: 7px;
+    border-top: 1px solid currentColor;
+    border-right: 1px solid currentColor;
+    transform: rotate(45deg) translate(-1px, 1px);
+  }
+  opacity: 0;
+  transform: translateX(-8px);
+  transition: opacity 0.5s, transform 0.7s m.$easeOutQuart;
+  @include m.mq(sm) {
+    display: none;
+  }
+}
+.p-news__more {
+  align-self: flex-end;
+  margin-top: 22px;
+}
+.p-news__img {
+  position: relative;
+  min-height: 240px;
+  @include m.mq(tab) {
+    height: 52vw;
+  }
+}
+// 写真の上にロゴを押したようなスタンプ
+.p-news__stamp {
+  position: absolute;
+  right: 12%;
+  bottom: 16%;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px 16px;
+  border: 1px solid rgba(c.$text, 0.4);
+  font-size: 1.7rem;
+  line-height: 1;
+  color: rgba(c.$text, 0.75);
+  span {
+    margin-top: 4px;
+    font-size: 0.8rem;
+    letter-spacing: 0.2em;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .p-styleCard__img {
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
+  .p-style__list .p-styleCard__name,
+  .p-news__list li .p-news__item {
+    opacity: 1;
+  }
+  .p-news__list li::after {
+    transform: none;
+  }
+}
