@@ -1,0 +1,66 @@
+@charset "utf-8";
+@use "../foundation/mixin" as m;
+
+.u-tabBlock {
+  display: none;
+  @include m.mq(tab) {
+    display: block;
+  }
+}
+.u-tabNone {
+  display: block;
+  @include m.mq(tab) {
+    display: none;
+  }
+}
+.u-stNone {
+  display: block;
+  @include m.mq(s-t) {
+    display: none;
+  }
+}
+.u-stBlock {
+  display: none;
+  @include m.mq(s-t) {
+    display: block;
+  }
+}
+.u-spNone {
+  display: block;
+  @include m.mq(sm) {
+    display: none;
+  }
+}
+.u-spBlock {
+  display: none;
+  @include m.mq(sm) {
+    display: block;
+  }
+}
+.u-w100 {
+  width: 100%;
+  height: auto;
+}
+.u-h100 {
+  width: auto;
+  height: 100%;
+}
+.u-d-f {
+  display: flex;
+}
+.u-aic {
+  align-items: center;
+}
+.u-tac {
+  text-align: center;
+}
+.u-jsb {
+  justify-content: space-between;
+}
+
+.u-jcc {
+  justify-content: center;
+}
+.u-fww {
+  flex-wrap: wrap;
+}

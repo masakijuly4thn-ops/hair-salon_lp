@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <!-- <link rel="icon" href="./assets/images/favicon.ico" /> -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NOIR RESTAURANT | 一皿ごとに、夜が深くなる。</title>
+  <meta name="description" content="旬の食材と、静かな灯りが迎える特別なダイニング体験。大阪・梅田のレストラン NOIR。">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Allura&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Shippori+Mincho:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./assets/css/style.min.css">
+
+  <link rel="stylesheet" href="./assets/css/pages/top/index.min.css"></head>
+
+<body class="is-loading">
+  <!-- ローディング -->
+  <div class="l-loader" id="js-loader" aria-hidden="true">
+    <div class="l-loader__inner">
+      <p class="l-loader__logo c-fontEn">
+        <span>N</span><span>O</span><span>I</span><span>R</span>
+      </p>
+      <p class="l-loader__sub c-fontEn">RESTAURANT</p>
+      <span class="l-loader__bar"><span class="l-loader__barInner" id="js-loaderBar"></span></span>
+    </div>
+  </div>
+
+  <!-- カスタムカーソル / スクロール進捗 -->
+  <div class="c-cursor" id="js-cursor" aria-hidden="true"><span class="c-cursor__text">VIEW</span></div>
+  <div class="c-cursorDot" id="js-cursorDot" aria-hidden="true"></div>
+  <div class="c-progress" aria-hidden="true"><span class="c-progress__bar" id="js-progress"></span></div>
+
+  <header class="l-header" id="js-header">
+    <a href="./" class="l-header__logo">
+      <span class="l-header__logoMain c-fontEn">NOIR</span>
+      <span class="l-header__logoSub c-fontEn">RESTAURANT</span>
+    </a>
+    <div class="l-header__right">
+      <button class="l-headerNavButton" type="button" id="js-hamburgerButton" aria-label="メニューを開く" aria-expanded="false" aria-controls="js-headerNav">
+        <span class="lineIcon">
+          <span class="line"></span>
+          <span class="line"></span>
+        </span>
+      </button>
+    </div>
+    <nav class="l-headerNav" id="js-headerNav">
+      <ul class="l-headerNav__list">
+        <li class="l-headerNav__item"><a href="#concept" class="l-headerNav__link" data-text="コンセプト"><span>コンセプト</span></a></li>
+        <li class="l-headerNav__item"><a href="#menu" class="l-headerNav__link" data-text="メニュー"><span>メニュー</span></a></li>
+        <li class="l-headerNav__item"><a href="#course" class="l-headerNav__link" data-text="コース"><span>コース</span></a></li>
+        <li class="l-headerNav__item"><a href="#space" class="l-headerNav__link" data-text="空間"><span>空間</span></a></li>
+        <li class="l-headerNav__item"><a href="#chef" class="l-headerNav__link" data-text="シェフ"><span>シェフ</span></a></li>
+        <li class="l-headerNav__item"><a href="#gallery" class="l-headerNav__link" data-text="ギャラリー"><span>ギャラリー</span></a></li>
+        <li class="l-headerNav__item"><a href="#access" class="l-headerNav__link" data-text="アクセス"><span>アクセス</span></a></li>
+        <li class="l-headerNav__item --button">
+          <a href="#reserve" class="c-button --wine --small js-magnetic"><span class="c-button__text">ご予約</span></a>
+        </li>
+      </ul>
+    </nav>
+  </header><main class="l-main">
+
+  <!-- MV -->
+  <section class="p-mv" id="js-mv">
+    <div class="p-mv__slider" id="js-mvSlider">
+      <div class="p-mv__slide is-active">
+        <img src="./assets/images/top/mv-01.jpg" alt="香ばしく焼き上げた国産牛フィレのグリル" class="c-ofiCover">
+      </div>
+      <div class="p-mv__slide">
+        <img src="./assets/images/top/mv-02.jpg" alt="シェフが一皿を仕上げる様子" class="c-ofiCover">
+      </div>
+      <div class="p-mv__slide">
+        <img src="./assets/images/top/mv-03.jpg" alt="柔らかな灯りに包まれた店内" class="c-ofiCover">
+      </div>
+    </div>
+    <div class="p-mv__inner">
+      <h1 class="p-mv__title js-split">一皿ごとに、<br>夜が深くなる。</h1>
+      <p class="p-mv__text">旬の食材と、静かな灯りが迎える<br>特別なダイニング体験。</p>
+    </div>
+    <svg class="p-mv__script" viewBox="0 0 660 130" aria-hidden="true">
+      <text x="10" y="88">A Night to Savor</text>
+    </svg>
+    <a href="#concept" class="p-mv__scroll c-fontEn" aria-label="コンセプトへスクロール">
+      <span class="p-mv__scrollText">SCROLL</span>
+      <span class="p-mv__scrollLine"></span>
+    </a>
+    <div class="p-mv__pager">
+      <p class="p-mv__count c-fontEn">
+        <span class="p-mv__countCurrent"><span id="js-mvCurrent">01</span></span>
+        <span class="p-mv__countSep">/</span>
+        <span id="js-mvTotal">03</span>
+      </p>
+      <span class="p-mv__progress"><span class="p-mv__progressBar" id="js-mvProgress"></span></span>
+      <div class="p-mv__arrows">
+        <button type="button" class="c-arrow --prev" id="js-mvPrev" aria-label="前のスライド"><span></span></button>
+        <button type="button" class="c-arrow --next" id="js-mvNext" aria-label="次のスライド"><span></span></button>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONCEPT -->
+  <section class="p-concept" id="concept">
+    <div class="p-concept__inner c-inner --1100">
+      <div class="p-concept__content">
+        <h2 class="c-title">
+          <span class="c-title__en iv">CONCEPT</span>
+          <span class="c-title__ja iv js-split">食材が紡ぐ、<br>ここだけの時間。</span>
+        </h2>
+        <p class="p-concept__text c-blurIn iv">その季節、その土地、その瞬間にしか出会えない<br>食材の魅力を、シェフの感性で一皿に。<br>日常から少し離れた、特別な時間をお届けします。</p>
+        <a href="#menu" class="c-button --outline c-blurIn iv js-magnetic"><span class="c-button__text">コンセプトを見る</span><span class="c-button__arrow" aria-hidden="true"></span></a>
+      </div>
+      <div class="p-concept__img c-reveal iv" data-cursor="view">
+        <div class="c-parallax" data-parallax="0.12">
+          <img src="./assets/images/top/concept.jpg" alt="ピンセットで盛り付けを仕上げるシェフの手元" class="c-ofiCover">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SIGNATURE MENU -->
+  <section class="p-menu" id="menu">
+    <div class="c-inner --1100">
+      <div class="p-menu__head">
+        <h2 class="c-title --dark">
+          <span class="c-title__en iv">SIGNATURE MENU</span>
+          <span class="c-title__ja iv js-split">季節が香る、シェフのスペシャリテ。</span>
+        </h2>
+        <a href="#course" class="c-textLink c-blurIn iv">メニュー一覧を見る<span class="c-textLink__arrow" aria-hidden="true"></span></a>
+      </div>
+      <ul class="p-menu__list c-stagger iv">
+        <li class="p-menuCard">
+          <div class="p-menuCard__img" data-cursor="view">
+            <img src="./assets/images/top/menu-01.jpg" alt="帆立のポワレ 柚子の香り" class="c-ofiCover">
+          </div>
+          <h3 class="p-menuCard__title">帆立のポワレ　柚子の香り</h3>
+          <p class="p-menuCard__text">旬の帆立を香ばしく焼き上げ、<br>柚子の泡で仕上げた一皿。</p>
+          <p class="p-menuCard__price c-fontEn">¥<span class="js-count" data-to="2400">0</span></p>
+        </li>
+        <li class="p-menuCard">
+          <div class="p-menuCard__img" data-cursor="view">
+            <img src="./assets/images/top/menu-02.jpg" alt="国産牛フィレのグリル" class="c-ofiCover">
+          </div>
+          <h3 class="p-menuCard__title">国産牛フィレのグリル</h3>
+          <p class="p-menuCard__text">厳選した国産牛を、シンプルに<br>素材の味を引き立てて。</p>
+          <p class="p-menuCard__price c-fontEn">¥<span class="js-count" data-to="3800">0</span></p>
+        </li>
+        <li class="p-menuCard">
+          <div class="p-menuCard__img" data-cursor="view">
+            <img src="./assets/images/top/menu-03.jpg" alt="黒トリュフのカルボナーラ" class="c-ofiCover">
+          </div>
+          <h3 class="p-menuCard__title">黒トリュフのカルボナーラ</h3>
+          <p class="p-menuCard__text">濃厚なソースに香り高いトリュフを<br>贅沢に使用。</p>
+          <p class="p-menuCard__price c-fontEn">¥<span class="js-count" data-to="2200">0</span></p>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- COURSE -->
+  <section class="p-course" id="course">
+    <div class="p-course__bg">
+      <div class="c-parallax" data-parallax="0.2">
+        <img src="./assets/images/top/space-01.jpg" alt="" class="c-ofiCover">
+      </div>
+    </div>
+    <div class="c-inner --1100">
+      <h2 class="c-title --center">
+        <span class="c-title__en iv">COURSE</span>
+        <span class="c-title__ja iv js-split">シーンに合わせた、特別なコース。</span>
+      </h2>
+      <ul class="p-course__list c-stagger iv">
+        <li class="p-courseCard js-tilt">
+          <div class="p-courseCard__img">
+            <img src="./assets/images/top/course-01.jpg" alt="ランチコースのテーブル" class="c-ofiCover">
+          </div>
+          <div class="p-courseCard__body">
+            <p class="p-courseCard__en c-fontEn">LUNCH</p>
+            <h3 class="p-courseCard__title">季節のランチコース</h3>
+            <p class="p-courseCard__text">気軽に楽しむ、旬の味覚。</p>
+            <p class="p-courseCard__price c-fontEn">¥<span class="js-count" data-to="3500">0</span>~</p>
+            <a href="#reserve" class="c-button --outline --small"><span class="c-button__text">詳細を見る</span></a>
+          </div>
+          <span class="p-courseCard__glare" aria-hidden="true"></span>
+        </li>
+        <li class="p-courseCard js-tilt">
+          <div class="p-courseCard__img">
+            <img src="./assets/images/top/course-02.jpg" alt="ディナーコースのテーブル" class="c-ofiCover">
+          </div>
+          <div class="p-courseCard__body">
+            <p class="p-courseCard__en c-fontEn">DINNER</p>
+            <h3 class="p-courseCard__title">シェフおまかせコース</h3>
+            <p class="p-courseCard__text">旬の食材を堪能する、贅沢なひととき。</p>
+            <p class="p-courseCard__price c-fontEn">¥<span class="js-count" data-to="8000">0</span>~</p>
+            <a href="#reserve" class="c-button --outline --small"><span class="c-button__text">詳細を見る</span></a>
+          </div>
+          <span class="p-courseCard__glare" aria-hidden="true"></span>
+        </li>
+        <li class="p-courseCard js-tilt">
+          <div class="p-courseCard__img">
+            <img src="./assets/images/top/course-03.jpg" alt="記念日コースのテーブル" class="c-ofiCover">
+          </div>
+          <div class="p-courseCard__body">
+            <p class="p-courseCard__en c-fontEn">ANNIVERSARY</p>
+            <h3 class="p-courseCard__title">記念日コース</h3>
+            <p class="p-courseCard__text">大切な日のための、特別なコース。</p>
+            <p class="p-courseCard__price c-fontEn">¥<span class="js-count" data-to="12000">0</span>~</p>
+            <a href="#reserve" class="c-button --outline --small"><span class="c-button__text">詳細を見る</span></a>
+          </div>
+          <span class="p-courseCard__glare" aria-hidden="true"></span>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section class="p-space" id="space">
+    <div class="p-space__inner c-inner --1100">
+      <div class="p-space__content">
+        <h2 class="c-title --dark">
+          <span class="c-title__en iv">EXPERIENCE</span>
+          <span class="c-title__ja iv js-split">五感で味わう、くつろぎの空間。</span>
+        </h2>
+        <p class="p-space__text c-blurIn iv">木の温もりと柔らかな灯りがつくる、<br>落ち着いた大人の空間。<br>カウンター、テーブル、テラスなど、<br>シーンに合わせた席をご用意しています。</p>
+        <a href="#gallery" class="c-button --outlineDark c-blurIn iv js-magnetic"><span class="c-button__text">空間を見る</span><span class="c-button__arrow" aria-hidden="true"></span></a>
+      </div>
+      <div class="p-space__sliderWrap c-reveal iv">
+        <div class="p-space__slider" id="js-spaceSlider">
+          <div class="p-space__slide is-active"><img src="./assets/images/top/space-01.jpg" alt="キャンドルが灯るテーブル席" class="c-ofiCover"></div>
+          <div class="p-space__slide"><img src="./assets/images/top/space-02.jpg" alt="ペンダントライトが照らす店内" class="c-ofiCover"></div>
+          <div class="p-space__slide"><img src="./assets/images/top/space-03.jpg" alt="灯りがともる店舗のエントランス" class="c-ofiCover"></div>
+        </div>
+      </div>
+      <div class="p-space__pager c-blurIn iv">
+        <div class="p-space__arrows">
+          <button type="button" class="c-arrow --prev --dark" id="js-spacePrev" aria-label="前の写真"><span></span></button>
+          <button type="button" class="c-arrow --next --dark" id="js-spaceNext" aria-label="次の写真"><span></span></button>
+        </div>
+        <p class="p-space__count c-fontEn"><span class="p-space__countCurrent"><span id="js-spaceCurrent">01</span></span> / <span id="js-spaceTotal">03</span></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CHEF -->
+  <section class="p-chef" id="chef">
+    <div class="p-chef__inner c-inner --1100">
+      <div class="p-chef__img c-reveal iv" data-cursor="view">
+        <div class="c-parallax" data-parallax="0.12">
+          <img src="./assets/images/top/chef.jpg" alt="真剣な表情で料理を仕上げるシェフ" class="c-ofiCover">
+        </div>
+      </div>
+      <div class="p-chef__content">
+        <h2 class="c-title">
+          <span class="c-title__en iv">CHEF</span>
+          <span class="c-title__ja iv js-split">一皿に込める、想い。</span>
+        </h2>
+        <p class="p-chef__text c-blurIn iv">食材の声に耳を傾け、<br>その魅力を最大限に引き出すこと。<br>ここでしか味わえない一皿で、<br>皆さまの特別な時間を彩ります。</p>
+        <a href="#gallery" class="c-button --outline c-blurIn iv js-magnetic"><span class="c-button__text">シェフについて</span><span class="c-button__arrow" aria-hidden="true"></span></a>
+      </div>
+      <svg class="p-chef__script c-draw iv" viewBox="0 0 300 140" aria-hidden="true">
+        <text x="10" y="100">Chef</text>
+      </svg>
+    </div>
+  </section>
+
+  <!-- GALLERY -->
+  <section class="p-gallery" id="gallery">
+    <div class="c-inner --1100">
+      <div class="p-gallery__head">
+        <h2 class="c-title --dark">
+          <span class="c-title__en iv">GALLERY</span>
+          <span class="c-title__ja iv js-split">料理と空間、その瞬間を。</span>
+        </h2>
+        <a href="#gallery" class="c-textLink c-blurIn iv">ギャラリーを見る<span class="c-textLink__arrow" aria-hidden="true"></span></a>
+      </div>
+      <ul class="p-gallery__list c-stagger --scale iv">
+        <li><button type="button" class="p-gallery__item js-lightbox" data-cursor="view"><img src="./assets/images/top/gallery-01.jpg" alt="国産牛のグリル" class="c-ofiCover"></button></li>
+        <li><button type="button" class="p-gallery__item js-lightbox" data-cursor="view"><img src="./assets/images/top/gallery-02.jpg" alt="彩り豊かな前菜とブッラータ" class="c-ofiCover"></button></li>
+        <li><button type="button" class="p-gallery__item js-lightbox" data-cursor="view"><img src="./assets/images/top/gallery-03.jpg" alt="キャンドルとワイングラス" class="c-ofiCover"></button></li>
+        <li><button type="button" class="p-gallery__item js-lightbox" data-cursor="view"><img src="./assets/images/top/gallery-04.jpg" alt="灯りに包まれた店内" class="c-ofiCover"></button></li>
+        <li><button type="button" class="p-gallery__item js-lightbox" data-cursor="view"><img src="./assets/images/top/gallery-05.jpg" alt="ベリーを添えたデザート" class="c-ofiCover"></button></li>
+        <li><button type="button" class="p-gallery__item js-lightbox" data-cursor="view"><img src="./assets/images/top/gallery-06.jpg" alt="グラスに注がれる赤ワイン" class="c-ofiCover"></button></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ACCESS -->
+  <section class="p-access" id="access">
+    <div class="p-access__inner c-inner --1100">
+      <div class="p-access__head">
+        <h2 class="c-title">
+          <span class="c-title__en --gold iv">ACCESS</span>
+          <span class="c-title__ja iv js-split">日常から少し離れた、<br>特別な場所。</span>
+        </h2>
+      </div>
+      <div class="p-access__info c-blurIn iv">
+        <p class="p-access__address">〒530-0001<br>大阪府大阪市北区梅田1-1-1 グランビル 1F</p>
+        <dl class="p-access__table">
+          <div class="p-access__row">
+            <dt>営業時間</dt>
+            <dd>11:30 - 15:00（L.O. 14:00）<br>17:30 - 22:00（L.O. 21:00）</dd>
+          </div>
+          <div class="p-access__row">
+            <dt>定休日</dt>
+            <dd>月曜日</dd>
+          </div>
+        </dl>
+        <a href="https://maps.google.com/" target="_blank" rel="noopener" class="c-button --outline --small --map js-magnetic">
+          <span class="c-button__text">Google Mapで見る</span>
+          <svg class="c-button__pin" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a7 7 0 0 0-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 0 0-7-7Zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5Z"/></svg>
+        </a>
+      </div>
+      <div class="p-access__img c-reveal iv" data-cursor="view">
+        <div class="c-parallax" data-parallax="0.1">
+          <img src="./assets/images/top/access.jpg" alt="NOIRの店舗外観" class="c-ofiCover">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RESERVE -->
+  <section class="p-reserve" id="reserve">
+    <div class="p-reserve__bg">
+      <div class="c-parallax" data-parallax="0.25">
+        <img src="./assets/images/top/gallery-03.jpg" alt="" class="c-ofiCover">
+      </div>
+    </div>
+    <div class="c-inner --1100">
+      <h2 class="p-reserve__title iv js-split">今夜の一席を、ご予約ください。</h2>
+      <div class="p-reserve__buttons c-blurIn iv">
+        <a href="#" class="c-button --wine --large js-magnetic"><span class="c-button__text">WEB予約</span><span class="c-button__arrow" aria-hidden="true"></span></a>
+        <a href="tel:0000000000" class="c-button --outline --large js-magnetic">
+          <span class="c-button__text">
+            <svg class="c-button__tel" viewBox="0 0 24 24" aria-hidden="true"><path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.57a1 1 0 0 1-.25 1Z"/></svg>電話で予約する
+          </span>
+          <span class="c-button__arrow" aria-hidden="true"></span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+</main>
+  <footer class="l-footer">
+    <div class="l-footer__inner">
+      <a href="./" class="l-footer__logo">
+        <span class="l-footer__logoMain c-fontEn">NOIR</span>
+        <span class="l-footer__logoSub c-fontEn">RESTAURANT</span>
+      </a>
+      <nav class="l-footer__nav">
+        <ul class="l-footer__navList">
+          <li><a href="#concept">コンセプト</a></li>
+          <li><a href="#menu">メニュー</a></li>
+          <li><a href="#course">コース</a></li>
+          <li><a href="#space">空間</a></li>
+          <li><a href="#chef">シェフ</a></li>
+          <li><a href="#gallery">ギャラリー</a></li>
+          <li><a href="#access">アクセス</a></li>
+        </ul>
+      </nav>
+      <small class="l-footer__copy c-fontEn">&copy; 2026 NOIR. All rights reserved.</small>
+      <ul class="l-footer__sns">
+        <li>
+          <a href="#" aria-label="Instagram">
+            <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+          </a>
+        </li>
+        <li>
+          <a href="#access" aria-label="アクセス">
+            <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 21s-7-6.75-7-12a7 7 0 0 1 14 0c0 5.25-7 12-7 12Z"/><circle cx="12" cy="9" r="2.5"/></svg>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </footer>
+
+  <!-- ライトボックス -->
+  <div class="c-lightbox" id="js-lightbox" role="dialog" aria-modal="true" aria-label="ギャラリー拡大表示" aria-hidden="true">
+    <button type="button" class="c-lightbox__close" id="js-lightboxClose" aria-label="閉じる"></button>
+    <button type="button" class="c-arrow --prev c-lightbox__prev" id="js-lightboxPrev" aria-label="前の写真"><span></span></button>
+    <figure class="c-lightbox__figure">
+      <img src="" alt="" id="js-lightboxImg">
+      <figcaption class="c-lightbox__caption" id="js-lightboxCaption"></figcaption>
+    </figure>
+    <button type="button" class="c-arrow --next c-lightbox__next" id="js-lightboxNext" aria-label="次の写真"><span></span></button>
+  </div>
+
+  <script src="./assets/js/lib.js"></script>
+  <script src="./assets/js/scripts.min.js"></script>
+  </body>
+
+  </html>

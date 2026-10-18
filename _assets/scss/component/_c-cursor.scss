@@ -1,0 +1,104 @@
+@charset "utf-8";
+@use "../foundation/mixin" as m;
+@use "../foundation/color" as c;
+
+// カスタムカーソル（マウス操作の端末のみ scripts.js が html に .has-cursor を付与）
+// リングは遅れて追従、ドットは即時追従
+.c-cursor,
+.c-cursorDot {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  pointer-events: none;
+  .has-cursor & {
+    display: block;
+  }
+}
+.c-cursor {
+  width: 36px;
+  height: 36px;
+  margin: -18px 0 0 -18px;
+  border: 1px solid rgba(c.$goldLight, 0.7);
+  border-radius: 50%;
+  transform: translate3d(var(--x, -100px), var(--y, -100px), 0);
+  transition: width 0.5s m.$easeOutQuart, height 0.5s m.$easeOutQuart, margin 0.5s m.$easeOutQuart,
+    background-color 0.5s, border-color 0.5s, opacity 0.3s;
+  mix-blend-mode: difference;
+  // リンク上：リングが広がる
+  &.is-link {
+    width: 60px;
+    height: 60px;
+    margin: -30px 0 0 -30px;
+    background-color: rgba(c.$goldLight, 0.15);
+  }
+  // 写真上：「VIEW」の文字が入った円になる
+  &.is-view {
+    width: 86px;
+    height: 86px;
+    margin: -43px 0 0 -43px;
+    background-color: rgba(c.$ivory, 0.92);
+    border-color: transparent;
+    mix-blend-mode: normal;
+    .c-cursor__text {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+  &.is-hidden {
+    opacity: 0;
+  }
+}
+.c-cursor__text {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Cormorant Garamond", serif;
+  font-size: 1.2rem;
+  letter-spacing: 0.2em;
+  color: c.$textDark;
+  opacity: 0;
+  transform: scale(0.4);
+  transition: opacity 0.4s, transform 0.5s m.$easeOutBack;
+}
+.c-cursorDot {
+  width: 5px;
+  height: 5px;
+  margin: -2.5px 0 0 -2.5px;
+  border-radius: 50%;
+  background-color: c.$goldLight;
+  transform: translate3d(var(--x, -100px), var(--y, -100px), 0);
+  transition: opacity 0.3s;
+  &.is-hidden {
+    opacity: 0;
+  }
+}
+.has-cursor {
+  &,
+  a,
+  button {
+    cursor: none;
+  }
+}
+
+// ページ上部のスクロール進捗バー
+.c-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 200;
+  width: 100%;
+  height: 2px;
+  pointer-events: none;
+}
+.c-progress__bar {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, c.$wine, c.$gold);
+  transform: scaleX(var(--progress, 0));
+  transform-origin: left center;
+}

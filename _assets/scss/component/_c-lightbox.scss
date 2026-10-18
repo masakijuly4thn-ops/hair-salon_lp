@@ -1,0 +1,101 @@
+@charset "utf-8";
+@use "../foundation/mixin" as m;
+@use "../foundation/color" as c;
+
+// ギャラリーの拡大表示
+// 開く：背景が暗転 → 写真が下から幕を上げるように表示
+.c-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 300;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  padding: 40px 24px;
+  background-color: rgba(c.$black, 0.92);
+  backdrop-filter: blur(6px);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.6s m.$easeOutCubic, visibility 0.6s;
+  @include m.mq(s-t) {
+    gap: 0;
+    padding: 60px 12px;
+  }
+  &.is-open {
+    opacity: 1;
+    visibility: visible;
+    .c-lightbox__figure {
+      clip-path: inset(0 0 0 0);
+      transform: scale(1);
+    }
+  }
+  .c-arrow {
+    flex-shrink: 0;
+    @include m.mq(s-t) {
+      position: absolute;
+      bottom: 16px;
+      &.--prev {
+        left: calc(50% - 56px);
+      }
+      &.--next {
+        right: calc(50% - 56px);
+      }
+    }
+  }
+}
+.c-lightbox__figure {
+  max-width: min(960px, 100%);
+  margin: 0;
+  clip-path: inset(100% 0 0 0);
+  transform: scale(0.96);
+  transition: clip-path 0.9s m.$easeInOutQuart 0.15s, transform 1.2s m.$easeOutQuart 0.15s;
+  img {
+    width: 100%;
+    max-height: 76vh;
+    object-fit: contain;
+    transition: opacity 0.35s, transform 0.5s m.$easeOutCubic;
+    &.is-changing {
+      opacity: 0;
+      transform: translateX(var(--dir, 20px));
+    }
+  }
+}
+.c-lightbox__caption {
+  margin-top: 14px;
+  font-size: 1.3rem;
+  text-align: center;
+  color: c.$textLightSub;
+}
+.c-lightbox__close {
+  position: absolute;
+  top: 20px;
+  right: 24px;
+  width: 44px;
+  height: 44px;
+  &::before,
+  &::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 26px;
+    height: 1px;
+    background-color: c.$textLight;
+    transition: transform 0.5s m.$easeOutQuart;
+  }
+  &::before {
+    transform: translate(-50%, -50%) rotate(45deg);
+  }
+  &::after {
+    transform: translate(-50%, -50%) rotate(-45deg);
+  }
+  &:hover {
+    &::before {
+      transform: translate(-50%, -50%) rotate(135deg);
+    }
+    &::after {
+      transform: translate(-50%, -50%) rotate(45deg);
+    }
+  }
+}

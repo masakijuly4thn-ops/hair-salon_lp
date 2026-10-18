@@ -1,0 +1,93 @@
+@charset "utf-8";
+@use "../foundation/mixin" as m;
+@use "../foundation/color" as c;
+
+.c-title {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 14px;
+  &.--center {
+    align-items: center;
+    text-align: center;
+  }
+}
+
+// 英字ラベル：左の金線が伸び、字間が締まりながら現れる
+.c-title__en {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0;
+  font-family: "Cormorant Garamond", serif;
+  font-size: 1.3rem;
+  font-weight: 500;
+  letter-spacing: 0.6em;
+  line-height: 1.2;
+  color: c.$textLightSub;
+  opacity: 0;
+  transition: letter-spacing 1.6s m.$easeOutQuart, opacity 1.2s m.$easeOutCubic, gap 1.2s m.$easeOutQuart;
+  &::before {
+    content: "";
+    display: block;
+    width: 0;
+    height: 1px;
+    background-color: c.$gold;
+    transition: width 1s m.$easeOutQuart;
+  }
+  &.view {
+    gap: 12px;
+    letter-spacing: 0.22em;
+    opacity: 1;
+    &::before {
+      width: 24px;
+    }
+  }
+  &.--gold {
+    color: c.$gold;
+  }
+  .c-title.--dark & {
+    color: c.$textDarkSub;
+  }
+  .c-title.--center & {
+    &::after {
+      content: "";
+      display: block;
+      width: 0;
+      height: 1px;
+      background-color: c.$gold;
+      transition: width 1s m.$easeOutQuart;
+    }
+    &.view::after {
+      width: 24px;
+    }
+  }
+}
+
+// 日本語見出し：1文字ずつ、ぼかしが晴れながら浮かび上がる
+.c-title__ja {
+  font-size: 2.6rem;
+  font-weight: 500;
+  line-height: 1.6;
+  letter-spacing: 0.12em;
+  color: c.$textLight;
+  @include m.mq(sm) {
+    font-size: 2.1rem;
+  }
+  .c-title.--dark & {
+    color: c.$textDark;
+  }
+  .char {
+    opacity: 0;
+    filter: blur(10px);
+    transform: translateY(0.5em) rotate(6deg);
+    transform-origin: left bottom;
+    transition: opacity 1s m.$easeOutCubic, filter 1s m.$easeOutCubic, transform 1.2s m.$easeOutQuart;
+    transition-delay: calc(var(--i) * 0.045s + 0.2s);
+  }
+  &.view .char {
+    opacity: 1;
+    filter: blur(0);
+    transform: translateY(0) rotate(0);
+  }
+}
